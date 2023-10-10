@@ -3,13 +3,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>User</title>
+    <title>По id</title>
     <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h2>Данные пользователя <label th:utext="${user.getName()}"></label> <label th:utext="${user.getSurname()}"></label></h2>
+<h2>Получен пользователь <label th:utext="${user.getName()}"></label> <label th:utext="${user.getSurname()}"></label></h2>
 <br>
-<form th:method="GET" th:action="@{/user}" th:object="${user}">
+<form th:method="GET" th:action="@{/show}" th:object="${user}">
     <label for="id">ID</label>
     <input readonly type="text" th:field="*{id}" id="id"/>
     <br><br>
@@ -28,9 +28,26 @@
     <label for="email">Электронная почта</label>
     <input readonly type="text" th:field="*{email}" id="email"/>
     <br><br>
+    <label for="email">Роль</label>
+    <td><th:block th:each="role: ${user.roles}">
+        <p th:utext="${role.roleName}"></p>
+    </th:block></td>
 </form>
-<button href="#" onclick="history.back();return false;" class="history-back">Назад</button>
-<br><br>
+<br>
+<form th:action="@{/admin}">
+    <button type="submit">Перейти на главную страницу</button>
+</form>
+<br>
+<form th:action="@{/admin/update/{id}(id=${user.id})}" th:object="${user}">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <button type="submit">Изменить</button>
+</form>
+<br>
+<form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}" th:object="${user}">
+    <input type="hidden" name="id" th:value="${user.id}">
+    <button type="submit">Удалить</button>
+</form>
+<br>
 <input type="button" value="Logout"
        onclick="window.location.href = '/logout'"/>
 </form>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Новый пользователь</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h2>Введите данные пользователя</h2>
+<br>
+
+<form th:method="POST" th:action="@{/admin/saveUser}" th:object="${user}">
+    <label for="username">Логин</label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br><br>
+    <label for="name">Имя</label>
+    <input type="text" th:field="*{name}" id="name"/>
+    <br><br>
+    <label for="surname">Фамилия</label>
+    <input type="text" th:field="*{surname}" id="surname"/>
+    <br><br>
+    <label for="age">Возраст</label>
+    <input type="text" th:field="*{age}" id="age"/>
+    <br><br>
+    <label for="email">Электронная почта</label>
+    <input type="text" th:field="*{email}" id="email"/>
+    <br><br>
+    <label for="password">Пароль</label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br><br>
+    <label>Роль</label>
+    <input type="checkbox" name="roles" th:each="role: ${roles}" th:text="${role.roleName}" th:value="${role.id}"/>
+    <br><br>
+    <form th:action="@{/admin}">
+        <button type="submit">Добавить</button>
+    </form>
+</form>
+
+<br>
+
+<form th:action="@{/admin}">
+    <button type="submit">Перейти на главную страницу</button>
+</form>
+<br>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+</body>
+</html>

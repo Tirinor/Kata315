@@ -4,8 +4,12 @@
     <title>Spring Security Example</title>
 </head>
 <body>
-<h1>Welcome to Index PAGE!</h1>
-
-
+<h1>Страница с общей информацией, доступной всем пользователям</h1>
+<form th:action="@{/login}">
+    <button type="submit">Авторизоваться</button>
+</form>
+<br>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
 </body>
 </html>

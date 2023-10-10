@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<h2>Страница администратора</h2>
+<label> Нажмите на id пользователя, чтобы получить информацию о нём в другой форме</label>
+<br><br>
+<table border="1" style="border-collapse:collapse;">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Логин</th>
+        <th scope="col">Имя</th>
+        <th scope="col">Фамилия</th>
+        <th scope="col">Возраст</th>
+        <th scope="col">Почта</th>
+        <th scope="col">Роль</th>
+    </tr>
+    <tr th:each="user: ${users}">
+        <td> <a th:href="@{/admin/show/{id}(id=${user.getId()})}" th:utext="${user.getId()}">user</a></td>
+        <td th:utext="${user.getUsername()}"></td>
+        <td th:utext="${user.getName()}"></td>
+        <td th:utext="${user.getSurname()}"></td>
+        <td th:utext="${user.getAge()}"></td>
+        <td th:utext="${user.getEmail()}"></td>
+        <td><th:block th:each="role: ${user.roles}">
+            <p th:utext="${role.roleName}"></p>
+        </th:block></td>
+        <td>
+            <form th:action="@{/admin/update/{id}(id=${user.getId()})}" th:object="${user}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Изменить</button>
+            </form>
+        </td>
+        <td>
+            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}" th:object="${user}">
+                <input type="hidden" name="id" th:value="${user.id}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+</table>
+<br>
+<form th:action="@{/admin/save}">
+    <button type="submit">Добавить пользователя</button>
+</form>
+<br>
+<form th:action="@{/user}">
+    <button type="submit">Панель пользователя</button>
+</form>
+<br>
+<input type="button" value="Logout"
+       onclick="window.location.href = '/logout'"/>
+</body>
+</html>
