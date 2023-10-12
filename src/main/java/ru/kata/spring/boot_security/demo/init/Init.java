@@ -45,8 +45,8 @@ public class Init {
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
 
-        User admin = new User("admin", "test22", "admin@mail.ru", passwordEncoder.encode("admin"), (byte)10, setAdminRole());
-        User user = new User("user", "test11", "user@mail.ru", passwordEncoder.encode("user"), (byte)25, setRoleUser());
+        User admin = new User("Admin", "Test", (byte)12, passwordEncoder.encode("admin"), "admin", setAdminRole());
+        User user = new User("User", "Testtwo", (byte)25, passwordEncoder.encode("user"), "user", setRoleUser());
 
         userRepository.save(admin);
         userRepository.save(user);
