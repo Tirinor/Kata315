@@ -30,6 +30,7 @@ public class Init {
     public Set<Role> setAdminRole() {
         Set<Role> adminRole = new HashSet<>();
         adminRole.add(roleAdmin);
+        adminRole.add(roleUser);
         return adminRole;
     }
 
@@ -44,8 +45,8 @@ public class Init {
         roleRepository.save(roleAdmin);
         roleRepository.save(roleUser);
 
-        User admin = new User("admin", "test2", "admin@mail.ru", passwordEncoder.encode("admin"), (byte)10, setAdminRole());
-        User user = new User("user", "test1", "user@mail.ru", passwordEncoder.encode("user"), (byte)25, setRoleUser());
+        User admin = new User("admin", "test22", "admin@mail.ru", passwordEncoder.encode("admin"), (byte)10, setAdminRole());
+        User user = new User("user", "test11", "user@mail.ru", passwordEncoder.encode("user"), (byte)25, setRoleUser());
 
         userRepository.save(admin);
         userRepository.save(user);

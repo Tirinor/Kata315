@@ -19,7 +19,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
-import java.util.*;
+import java.util.Set;
+import java.util.Collection;
 import java.util.stream.Collectors;
 
 @Entity
@@ -30,7 +31,7 @@ public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "username")
+    @Column(name = "username", unique = true)
     @NotEmpty(message = "Name should not be empty")
     @Size(min = 2, max = 30, message = "Name should be between 2 and 30 characters")
     private String username;
@@ -41,7 +42,7 @@ public class User implements UserDetails {
     @Column(name = "age")
     @Min(value = 0, message = "Age should be greater than 0")
     private Byte age;
-    @Column(name = "email")
+    @Column(name = "email", unique = true)
     @NotEmpty(message = "Email name should not be empty")
     @Email(message = "Email should be valid")
     private String email;
@@ -166,6 +167,7 @@ public class User implements UserDetails {
                 ", age=" + age +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", roles=" + roles +
                 '}';
     }
 

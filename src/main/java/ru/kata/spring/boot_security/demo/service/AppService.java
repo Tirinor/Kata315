@@ -1,6 +1,5 @@
 package ru.kata.spring.boot_security.demo.service;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 
@@ -12,6 +11,7 @@ public interface AppService {
     List<User> getAllUsers();
     void saveUser(User user);
     void removeUser(Long id);
-    Role getOneRole(Long id);
     User findOne(Long id);
+
+    void update(User user);
 }

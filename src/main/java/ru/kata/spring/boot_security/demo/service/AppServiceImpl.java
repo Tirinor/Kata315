@@ -57,10 +57,6 @@ public class AppServiceImpl implements UserDetailsService, AppService {
         userRepository.save(user);
     }
 
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username);
-    }
-
     @Transactional
     public void removeUser(Long id) {
         userRepository.deleteById(id);
@@ -75,11 +71,6 @@ public class AppServiceImpl implements UserDetailsService, AppService {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
         return user;
-    }
-
-    public Role getOneRole(Long id) {
-        Optional<Role> role = roleRepository.findById(id);
-        return role.orElse(new Role());
     }
 
     public User findOne(Long id) {
