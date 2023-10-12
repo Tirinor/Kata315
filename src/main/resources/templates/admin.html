@@ -1,59 +1,54 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"> <html xmlns:th="http://www.thymeleaf.org">
+
 <head>
     <meta charset="UTF-8">
-    <title>Пользователи</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Users</title>
 </head>
 <body>
-<h2>Страница администратора</h2>
-<label> Нажмите на id пользователя, чтобы получить информацию о нём в другой форме</label>
-<br><br>
-<table border="1" style="border-collapse:collapse;">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Логин</th>
-        <th scope="col">Имя</th>
-        <th scope="col">Фамилия</th>
-        <th scope="col">Возраст</th>
-        <th scope="col">Почта</th>
-        <th scope="col">Роль</th>
-    </tr>
-    <tr th:each="user: ${users}">
-        <td> <a th:href="@{/admin/show/{id}(id=${user.getId()})}" th:utext="${user.getId()}">user</a></td>
-        <td th:utext="${user.getUsername()}"></td>
-        <td th:utext="${user.getName()}"></td>
-        <td th:utext="${user.getSurname()}"></td>
-        <td th:utext="${user.getAge()}"></td>
-        <td th:utext="${user.getEmail()}"></td>
-        <td><th:block th:each="role: ${user.roles}">
-            <p th:utext="${role.roleName}"></p>
-        </th:block></td>
+<table>All users
+    <thread>
+        <tr>
+            <th>Id</th>
+            <th>Username</th>
+            <th>Last_name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+    </thread>
+    <tbody>
+    <tr th:each="user : ${users}">
+        <td th:text="${user.getId()}"/>
+        <td th:text="${user.getUsername()}"/>
+        <td th:text="${user.getLastName()}"/>
+        <td th:text="${user.getEmail()}"/>
+        <td th:text="${user.getRoles()}"/>
         <td>
-            <form th:action="@{/admin/update/{id}(id=${user.getId()})}" th:object="${user}">
-                <input type="hidden" name="id" th:value="${user.id}">
-                <button type="submit">Изменить</button>
-            </form>
+            <a th:href="@{/admin/user-update/{id}(id=${user.getId()})}">Update</a>
         </td>
         <td>
-            <form th:method="DELETE" th:action="@{/admin/{id}(id=${user.id})}" th:object="${user}">
-                <input type="hidden" name="id" th:value="${user.id}">
-                <button type="submit">Удалить</button>
-            </form>
+            <a th:href="@{/admin/user-delete/{id}(id=${user.getId()})}">Delete</a>
         </td>
     </tr>
+    </tbody>
 </table>
+</div>
 <br>
-<form th:action="@{/admin/save}">
-    <button type="submit">Добавить пользователя</button>
+<form action="#" th:action="@{/admin/user-create}" method="get">
+    <input type="submit" value="Create"/>
 </form>
 <br>
-<form th:action="@{/user}">
-    <button type="submit">Панель пользователя</button>
+<form action="#" th:action="@{/user}">
+    <input type="submit" value="Info user"/>
 </form>
 <br>
-<input type="button" value="Logout"
-       onclick="window.location.href = '/logout'"/>
+<form action="#" th:action="@{/logout}" method="get">
+    <input type="submit" value="Logout"/>
+</form>
+</div>
+
+
 </body>
 </html>

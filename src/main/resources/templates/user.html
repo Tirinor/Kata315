@@ -1,38 +1,25 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml"> <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
 </head>
 <body>
-<h2>Данные пользователя <label th:utext="${user.getName()}"></label> <label th:utext="${user.getSurname()}"></label></h2>
-<br>
-<form th:method="GET" th:action="@{/user}" th:object="${user}">
-    <label for="id">ID</label>
-    <input readonly type="text" th:field="*{id}" id="id"/>
-    <br><br>
-    <label for="username">Логин</label>
-    <input readonly type="text" th:field="*{username}" id="username"/>
-    <br><br>
-    <label for="name">Имя</label>
-    <input readonly type="text" th:field="*{name}" id="name"/>
-    <br><br>
-    <label for="surname">Фамилия</label>
-    <input readonly type="text" th:field="*{surname}" id="surname"/>
-    <br><br>
-    <label for="age">Возраст</label>
-    <input readonly type="text" th:field="*{age}" id="age"/>
-    <br><br>
-    <label for="email">Электронная почта</label>
-    <input readonly type="text" th:field="*{email}" id="email"/>
-    <br><br>
-</form>
-<button href="#" onclick="history.back();return false;" class="history-back">Назад</button>
-<br><br>
-<input type="button" value="Logout"
-       onclick="window.location.href = '/logout'"/>
+<table border="1"> User Info Page
+    <tr>
+        <th>ID</th>
+        <th>Username</th>
+        <th>email</th>
+    </tr>
+    <tr>
+        <td th:text="${user.getId()}"/>
+        <td th:text="${user.getUsername()}"/>
+        <td th:text="${user.getEmail()}"/>
+    </tr>
+</table>
+<br/>
+<form  action="#"  th:action="@{/logout}" method="get">
+    <input type="submit" value="Logout"/>
 </form>
 </body>
 </html>

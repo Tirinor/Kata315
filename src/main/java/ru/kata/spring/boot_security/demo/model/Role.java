@@ -1,73 +1,40 @@
 package ru.kata.spring.boot_security.demo.model;
 
-import java.util.Set;
-
+import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Table(name = "t_role")
+@Data
+@Table(name = "roles")
 public class Role implements GrantedAuthority {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id_role;
-    @Column(name = "rolename")
-    private String roleName;
-//    @ManyToMany(cascade = CascadeType.ALL)
-//    @JoinTable(
-//            name = "t_user_role",
-//            joinColumns = @JoinColumn(name = "id_role"),
-//            inverseJoinColumns = @JoinColumn(name = "id_user")
-//    )
-//    private Set<User> users;
+    private Long id;
+    @Column(name = "name")
+    private String name;
+
+    @Transient
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
     public Role() {
     }
-
-    public Role(Long id_role) {
-        this.id_role = id_role;
+    public Role(String name) {
+        this.name = name;
     }
-
-    public Role(Long id_role, String roleName) {
-        this.id_role = id_role;
-        this.roleName = roleName;
-    }
-
-    public Long getId() {
-        return id_role;
-    }
-
-    public void setId(Long id_role) {
-        this.id_role = id_role;
-    }
-
-    public String getRoleName() {
-        return roleName;
-    }
-
-    public void setRoleName(String roleName) {
-        this.roleName = roleName;
-    }
-
-//    public Set<User> getUsers() {
-//        return users;
-//    }
-//
-//    public void setUsers(Set<User> users) {
-//        this.users = users;
-//    }
 
     @Override
     public String getAuthority() {
-        return getRoleName();
+        return name;
     }
 
     @Override
     public String toString() {
-        return "Role{" +
-                "id=" + id_role +
-                ", name='" + roleName + '\'' +
-                '}';
+        return this.name;
     }
 }
